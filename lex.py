@@ -1,5 +1,10 @@
 from decimal import Decimal
 
+def dynamic_error_recursion(n):
+    # ОШИБКА 3: Глубокая рекурсия, которую "увидит" cProfile
+    if n <= 0:
+        return 1
+    return 1 + dynamic_error_recursion(n - 1)
 
 def gc():
     global CH
@@ -609,6 +614,24 @@ def lexer():
 
 
 def main():
+    # --- НАЧАЛО ВНЕДРЕННЫХ ОШИБОК ---
+
+    # ОШИБКА 1: "Бутылочное горлышко" CPU
+    # Статический анализ это пропустит, но cProfile покажет, что здесь тратится все время
+    total = 0
+    for i in range(2000000):  # 2 миллиона итераций
+        total += i
+
+    # ОШИБКА 2: Медленная конкатенация строк
+    # Еще один тип "бутылочного горлышка"
+    s = ""
+    for j in range(15000):
+        s += "a"  # Очень медленный способ
+
+    dynamic_error_recursion(500)  # Вызываем ОШИБКУ 3
+
+    # --- КОНЕЦ ВНЕДРЕННЫХ ОШИБОК ---
+
     lexer()
 
 
