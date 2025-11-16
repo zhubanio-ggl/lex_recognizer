@@ -1,0 +1,1 @@
+{dim n, fact, i integer; dim flag boolean; fact as 1; read (n); flag as n = 0; if n >= 0 then if flag = true then write (1) else for i as 1 to n do [fact as fact * i : i as i + 1] else write (0-1);}
