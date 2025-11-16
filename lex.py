@@ -1,4 +1,6 @@
 from decimal import Decimal
+import json  # <--- ОШИБКА 1 (Неиспользуемый импорт)
+import os    # <--- ОШИБКА 5a (Импорт для уязвимости)
 
 
 def gc():
@@ -665,4 +667,20 @@ if __name__ == '__main__':
         lines = f.readlines()
 
     string = '\n'.join(line.rstrip('\r\n') for line in lines)
+
+    # ОШИБКА 2 (Плохое имя)
+    badName = "test"
+
+    # ОШИБКА 3 (Логический баг)
+    if 1 == 1:
+        print("Logic error")
+
+    # ОШИБКА 4 (Уязвимость eval)
+    eval("1 + 1")
+
+    # ОШИБКА 5 (Уязвимость os.system)
+    user_input = "test"
+    os.system(user_input)
+
+
     main()
